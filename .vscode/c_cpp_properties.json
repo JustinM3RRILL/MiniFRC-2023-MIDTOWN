@@ -10,7 +10,7 @@
                 "${workspaceFolder}/**",
                 "C:/Users/jschool/Documents/Arduino/Arduino IDE/**",
                 "C:/Users/jschool/Documents/Arduino/libraries/AlfredoConnect-Receive",
-                "C:/Users/jschool/Documents/Arduino/libraries/FastLED-3.6.0/**",
+                "C:/Users/jschool/Documents/Arduino/libraries/FastLED/**",
                 "C:/Users/jschool/Documents/Arduino/libraries/espressif/**",
                 "C:/Users/jschool/Documents/Arduino/libraries/Alfredo-NoU2/**"
             ],
@@ -242,7 +242,7 @@
                 "C:\\Users\\jschool\\Documents\\Arduino\\libraries\\Alfredo-NoU2",
                 "C:\\Users\\jschool\\Documents\\Arduino\\libraries\\AlfredoConnect-Receive",
                 "C:\\Users\\jschool\\AppData\\Local\\Arduino15\\packages\\esp32\\hardware\\esp32\\2.0.10\\libraries\\BluetoothSerial\\src",
-                "C:\\Users\\jschool\\Documents\\Arduino\\libraries\\FastLED-3.6.0\\src",
+                "C:\\Users\\jschool\\Documents\\Arduino\\libraries\\FastLED\\src",
                 "c:\\users\\jschool\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\esp-2021r2-patch5-8.4.0\\xtensa-esp32-elf\\include\\c++\\8.4.0",
                 "c:\\users\\jschool\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\esp-2021r2-patch5-8.4.0\\xtensa-esp32-elf\\include\\c++\\8.4.0\\xtensa-esp32-elf",
                 "c:\\users\\jschool\\appdata\\local\\arduino15\\packages\\esp32\\tools\\xtensa-esp32-elf-gcc\\esp-2021r2-patch5-8.4.0\\xtensa-esp32-elf\\include\\c++\\8.4.0\\backward",

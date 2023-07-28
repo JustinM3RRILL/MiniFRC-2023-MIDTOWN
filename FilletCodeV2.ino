@@ -42,8 +42,8 @@ CRGB leds[NUM_LEDS];
 
 //MOTORS AND SERVOS
 NoU_Motor DriveFR(6);
-NoU_Motor DriveFL(3);
-NoU_Motor DriveRR(5);
+NoU_Motor DriveFL(5);
+NoU_Motor DriveRR(1);
 NoU_Motor DriveRL(2);
 NoU_Motor ArmPinion(4);
 NoU_Servo JointServo(1);
@@ -121,15 +121,15 @@ void setLEDSColor(CRGB color) {
 }
 //Sets drive motor speeds based on axes
 void setDrivetrainMotors(float speed, float turn, float strafe) {
-  float frontRight = (speed - turn - strafe) * -1;
-  float frontLeft = (speed + turn + strafe) *-1;
-  float rearRight = (speed - turn + strafe) * -1;
+  float frontRight = (speed - turn - strafe);
+  float frontLeft = (speed + turn + strafe);
+  float rearRight = (speed - turn + strafe);
   float rearLeft = (speed + turn - strafe);
 
   DriveFR.set(frontRight);
-  DriveFL.set(frontLeft);
+  DriveFL.set(-frontLeft);
   DriveRR.set(rearRight);
-  DriveRL.set(rearLeft);
+  DriveRL.set(-rearLeft);
   bluetooth.println("#############################################");
   bluetooth.println("DRIVETRAIN");
   bluetooth.print("FRONT RIGHT DRIVE: "); bluetooth.println(frontRight);
@@ -163,7 +163,7 @@ void setArmPosition(ArmSetpoints jointSetpoint, ArmSetpoints wristSetpoint) {
     bluetooth.println("#############################################");
 }
 
-// | Left Shift | - Switch Game Piece Mode
+// | L2 | - Switch Game Piece Mode
 void setGameState(boolean isSwitchButtonPressed) {
   if (isSwitchButtonPressed && !coneModeButton) {
     gamePieceToggle = !gamePieceToggle;
@@ -179,7 +179,7 @@ void setGameState(boolean isSwitchButtonPressed) {
 }
 
 void autonomousSequence() {
-    // | NumPad1 | - Score High Cube, Leave Comm Auto
+    // | NUMPAD1 | - Score High Cube, Leave Comm Auto
   boolean auto1KeyPressed = AlfredoConnect.keyHeld(Key::Numpad1);
   if(auto1KeyPressed && !auto1Button) {
         setArmPosition(HIGH_JOINT, HIGH_WRIST);
@@ -201,13 +201,13 @@ void autonomousSequence() {
         setArmPosition(STOW_JOINT, STOW_WRIST);
         delay(300);
         setLEDSColor(CRGB::White);
-        setDrivetrainMotors(1, 0, 0);
+        setDrivetrainMotors(-1, 0, 0);
         delay(1080);
         setDrivetrainMotors(0, 0, 0);
   }
   auto1Button = auto1KeyPressed;
 
-// | NumPad 2 | - Score Cone, Balance Charge Station
+// | NUMPAD2 | - Score Cone, Balance Charge Station
   boolean auto2KeyPressed = AlfredoConnect.keyHeld(Key::Numpad2);
   if(auto2KeyPressed && !auto2Button) {
         setArmPosition(HIGH_JOINT, HIGH_WRIST);
@@ -229,13 +229,13 @@ void autonomousSequence() {
         setArmPosition(STOW_JOINT, STOW_WRIST);
         delay(300);
         setLEDSColor(CRGB::White);
-        setDrivetrainMotors(1, 0, 0);
+        setDrivetrainMotors(-1, 0, 0);
         delay(700);
         setDrivetrainMotors(0, 0, 0);
   }
   auto2Button = auto2KeyPressed;
 
-//Score High Cube, Leave Comm Auto
+// | NUMPAD3 | - Score High Cube, Leave Comm Auto
   boolean auto3KeyPressed = AlfredoConnect.keyHeld(Key::Numpad3);
   if(auto3KeyPressed && !auto3Button) {
         setArmPosition(HIGH_JOINT, HIGH_WRIST);
@@ -258,7 +258,7 @@ void autonomousSequence() {
         setArmPosition(STOW_JOINT, STOW_WRIST);
         delay(300);
         setLEDSColor(CRGB::White);
-        setDrivetrainMotors(1, 0, 0);
+        setDrivetrainMotors(-1, 0, 0);
         delay(950);
         setDrivetrainMotors(0, 0, 0);
   }
@@ -287,30 +287,30 @@ void loop() {
    // setDrivetrainMotors(0, 0, 0);
 
   //RACK AND PINION
-  if(AlfredoConnect.buttonHeld(0, 5)) //RIGHT BUMPER EXTEND
+  if(AlfredoConnect.buttonHeld(0, 5)) // | R1 | - EXTEND
     setRackAndPinion(-1);
-  else if(AlfredoConnect.buttonHeld(0, 4))
+  else if(AlfredoConnect.buttonHeld(0, 4)) // | L1 | - RETRACT
     setRackAndPinion(1);
   else
     setRackAndPinion(0);
 //ARM
-  //| P | - High Arm Position
+  //| TRIANGLE | - High Arm Position
   if (AlfredoConnect.buttonHeld(0, 3)) {
     setArmPosition(HIGH_JOINT, HIGH_WRIST);
   }
-  // | I | - Mid Arm Position
+  // | SQUARE | - Mid Arm Position
   else if (AlfredoConnect.buttonHeld(0, 2)) {
     setArmPosition(MID_JOINT, MID_WRIST);
   }
-  // | O | - Ground Intake Arm Position
+  // | X | - Ground Intake Arm Position
   else if (AlfredoConnect.buttonHeld(0, 0)) {
     setArmPosition(GROUND_INTAKE_JOINT, GROUND_INTAKE_WRIST);
   }
-    // | U | - Substation Arm Position
+    // | CIRCLE | - Substation Arm Position
     else if (AlfredoConnect.buttonHeld(0, 1)) {
       setArmPosition(SUBSTATION_JOINT, SUBSTATION_WRIST);
     }
-    // | NumPad9 | - Unflip Robot
+    // | SHARE | - Unflip Robot
     else if (AlfredoConnect.buttonHeld(0, 8)) {
       setArmPosition(UNFLIP_ROBOT_JOINT, UNFLIP_ROBOT_WRIST);
     }
@@ -320,7 +320,7 @@ void loop() {
     }
 
     // Intake Controls
-    // | Space | - Intake Toggle
+    // | R2 | - Intake Toggle
     boolean isIntakeKeyPressed = AlfredoConnect.buttonHeld(0, 7);
     if (isIntakeKeyPressed && !intakeButton) {
       intakeToggle = !intakeToggle;
